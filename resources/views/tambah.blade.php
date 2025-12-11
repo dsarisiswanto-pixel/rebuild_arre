@@ -65,8 +65,6 @@
 </head>
 
 <body>
-
-    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm">
         <div class="container">
             <a class="navbar-brand fw-bold" href="#">
@@ -81,8 +79,6 @@
         <hr style="border-color:#374151">
         <a href="/"><i class="fas fa-arrow-left"></i> Kembali ke Page</a>
     </div>
-
-    <!-- MAIN CONTENT -->
     <div class="main-content">
         <div class="card bg-white shadow-sm p-4 mb-4 text-center">
             <h2 class="fw-bold mb-2"><i class="fas fa-plus-circle"></i> Tambah Portofolio</h2>

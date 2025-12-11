@@ -8,10 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- Modern UI Styling --- */
         :root{
-            --primary:#0f172a; /* dark indigo */
-            --accent:#2563eb;  /* blue */
+            --primary:#0f172a; 
+            --accent:#2563eb;  
             --muted:#6b7280;
             --card:#ffffff;
         }
@@ -26,8 +25,7 @@
         .sidebar h4{ color:#fff; font-weight:700; margin-bottom:12px; }
         .sidebar a, .sidebar button{ color:#d1defa; padding:12px 20px; display:block; text-decoration:none; border-radius:8px; margin:6px 12px; }
         .sidebar a.active, .sidebar a:hover, .sidebar button:hover{ background:#12203a; color:#fff; }
-        
-        /* Tambahkan style untuk tombol logout di sidebar */
+    
         .sidebar .btn-logout {
             width: 100%;
             text-align: left;
@@ -44,13 +42,12 @@
 
         table img{ max-width:70px; border-radius:8px; }
         
-        /* Custom styles untuk Modal Success (SKEMA WARNA BIRU) */
         .success-icon-container {
             width: 90px;
             height: 90px;
             border-radius: 50%;
-            background-color: #eef4ff; /* Latar belakang biru muda */
-            color: var(--accent); /* Warna ikon (Biru) */
+            background-color: #eef4ff;
+            color: var(--accent); 
             font-size: 50px;
             display: flex;
             justify-content: center;
@@ -58,7 +55,7 @@
             margin: 0 auto 20px;
         }
         .btn-success-ok {
-            background-color: var(--accent); /* Tombol biru */
+            background-color: var(--accent);
             border-color: var(--accent);
             color: white;
             font-weight: 600;
@@ -67,7 +64,6 @@
             background-color: #1e40af;
             border-color: #1e40af;
         }
-        /* Responsiveness dipertahankan */
         @media (max-width: 768px){
             .sidebar{ position:relative; width:100%; height:auto; top:0; }
             .main-content{ margin-left:0; padding-top:20px; }
@@ -332,7 +328,6 @@
             });
         });
 
-        // --- Fill edit modal with existing data ---
         document.querySelectorAll('.btnEdit').forEach(btn=>{
             btn.addEventListener('click', function(){
                 const id = this.dataset.id || '';
@@ -341,37 +336,27 @@
                 const kategori = this.dataset.kategori || '';
                 const tanggal = this.dataset.tanggal || '';
                 const gambar = this.dataset.gambar || '';
-
-                // Set fields
                 document.getElementById('edit_id').value = id;
                 document.getElementById('edit_nama').value = nama;
                 document.getElementById('edit_deskripsi').value = deskripsi;
                 
-                // Set Selected Kategori
                 document.getElementById('edit_kategori').value = kategori;
 
                 document.getElementById('edit_tanggal').value = tanggal;
 
-                // Preview existing image if any
                 const preview = document.getElementById('edit_preview');
                 if (gambar) {
-                    // Karena data-gambar hanya berisi nama file, kita tambahkan path:
                     preview.src = '/uploads/' + gambar; 
                     preview.style.display = 'block';
                 } else {
                     preview.style.display = 'none';
                 }
-
-                // Set form action (Asumsi: Laravel menggunakan rute POST untuk update)
                 const form = document.getElementById('formEdit');
                 form.action = '/dashboard/update/' + id; 
-
-                // Reset input file saat modal dibuka
                 document.getElementById('edit_file').value = '';
             });
         });
 
-        // Preview new file selection inside edit modal
         document.getElementById('edit_file').addEventListener('change', function(e){
             const file = this.files[0];
             if (!file) return;
@@ -383,10 +368,6 @@
             };
             reader.readAsDataURL(file);
         });
-
-        // ------------------------------------------------------------------
-        // SCRIPT PENGATUR MODAL SUKSES (Menggabungkan semua notifikasi)
-        // ------------------------------------------------------------------
         $(document).ready(function() {
             const successMessage = "<?php echo session('success') ?? ''; ?>";
 

@@ -7,43 +7,36 @@ use App\Models\Portofolio;
 
 class PortofolioController extends Controller
 {
-
-    
-    // Halaman utama / landing page (ambil 6 item pertama)
     public function page()
     {
         $items = Portofolio::limit(6)->get();
         return view('page', compact('items'));
     }
 
-    // Halaman "Lihat Semua Klien" / semua portofolio
+  
     public function allClients()
     {
         $items = Portofolio::all(); 
-        return view('all_clients', compact('items')); // pastikan ada view all_clients.blade.php
+        return view('all_clients', compact('items')); 
     }
-
-    // Tampilkan detail satu portofolio
     public function show($id)
     {
         $item = Portofolio::findOrFail($id);
         return view('detail_portofolio', compact('item'));
     }
 
-    // Tampilkan semua portofolio di dashboard
+   
     public function dashboard()
     {
         $items = Portofolio::all();
         return view('dashboard', compact('items'));
     }
 
-    // Form tambah portofolio
     public function create()
     {
         return view('tambah');
     }
 
-    // Simpan data portofolio baru
     public function store(Request $request)
     {
         $request->validate([
@@ -67,15 +60,13 @@ class PortofolioController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Data berhasil ditambahkan!');
     }
-
-    // Form edit portofolio
     public function edit($id)
     {
         $item = Portofolio::findOrFail($id);
         return view('edit', compact('item'));
     }
 
-    // Update data portofolio
+
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -107,7 +98,6 @@ class PortofolioController extends Controller
         return redirect()->route('dashboard')->with('success', 'Data berhasil diperbarui!');
     }
 
-    // Hapus portofolio
     public function destroy($id)
     {
         $item = Portofolio::findOrFail($id);

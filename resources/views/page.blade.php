@@ -276,7 +276,7 @@
             transition: width 0.15s linear;
         }
 
-        /* reveal helper */
+     
         .reveal {
             opacity: 0;
             transform: translateY(20px);
@@ -339,43 +339,23 @@
                 margin-bottom: 30px !important;
             }
         }
-
-        /* Custom CSS untuk memperjelas Kontrol Carousel */
-
-        /* Mengatur tinggi minimum container agar panah berada di area yang benar */
         #clientCarousel {
             min-height: 450px;
-            /* Sesuaikan angka ini agar lebih tinggi dari kartu klien Anda */
             position: relative;
-            /* Memberikan padding horizontal agar panah memiliki ruang di sisi kiri dan kanan */
             padding: 0 40px;
         }
-
-        /* Mengatur posisi kontrol agar benar-benar di pinggir (sebelum padding) */
-        /* Penting: Pastikan class Bootstrap Anda adalah carousel-control-prev dan carousel-control-next */
         .carousel-control-prev,
         .carousel-control-next {
             width: 30px;
-            /* Lebar tombol kontrol */
             opacity: 1;
-            /* Pastikan tombol selalu terlihat */
         }
-
-        /* Mengatur ikon panah agar berwarna gelap dan berbentuk bulat */
         .carousel-control-prev-icon,
         .carousel-control-next-icon {
             background-color: rgba(0, 0, 0, 0.7);
-            /* Latar belakang hitam transparan */
             background-size: 100% 100%;
-            /* Memastikan ikon mengisi area tombol */
-            border-radius: 50%;
-            /* Bentuk bulat */
             padding: 15px;
-            /* Ukuran padding untuk memperbesar */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
-
-        /* Mengatur posisi panah agar berada di pinggir container carousel */
         .carousel-control-prev {
             left: 0;
         }
@@ -417,8 +397,6 @@
         </div>
     </nav>
 
-
-    <!-- small progress bar on top -->
     <div id="topProgress" aria-hidden="true"></div>
 
     <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm custom-navbar">

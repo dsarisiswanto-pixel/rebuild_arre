@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* Variabel Warna Biru Tua Estetik */
+      
         :root {
-            --accent: #0a1f44; /* Biru Tua */
+            --accent: #0a1f44; 
             --bg-gradient-start: rgba(255, 255, 255, 0.6);
             --bg-gradient-end: rgba(255, 255, 255, 0.2);
             --text-color: #1e1e2f;
@@ -33,7 +33,6 @@
             padding: 20px;
         }
 
-        /* Glassmorphism Card */
         .card {
             background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
             backdrop-filter: blur(12px);
@@ -50,7 +49,7 @@
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
 
-        /* Header Card dengan Wave Estetik */
+    
         .card-header-visual {
             background: linear-gradient(135deg, var(--accent), #162a66);
             color: white;
@@ -80,7 +79,6 @@
             margin-top: 10px;
         }
 
-        /* Inputs */
         .form-control {
             border-radius: 12px;
             padding: 12px 15px;
@@ -96,7 +94,7 @@
             background: rgba(255, 255, 255, 0.7);
         }
 
-        /* Button */
+
         .btn-primary {
             background: var(--accent);
             border-color: var(--accent);
@@ -125,21 +123,19 @@
             color: var(--text-color) !important;
         }
 
-        /* Input group icons */
         .input-group-text {
             background: rgba(255, 255, 255, 0.5);
             border-radius: 12px 0 0 12px;
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
         
-        /* --- Style Modal Sukses Khusus Halaman Login --- */
+
         .login-success-icon-container {
             width: 70px;
             height: 70px;
             border-radius: 50%;
-            /* Latar belakang biru muda, tapi lebih transparan */
             background-color: rgba(37, 99, 235, 0.1); 
-            color: #2563eb; /* Biru terang untuk ikon */
+            color: #2563eb; 
             font-size: 35px;
             display: flex;
             justify-content: center;
@@ -148,7 +144,7 @@
         }
 
         .btn-success-ok {
-            /* Menggunakan warna accent biru tua */
+        
             background-color: var(--accent);
             border-color: var(--accent);
             color: white;
@@ -174,7 +170,6 @@
             <div class="card-body p-4 p-sm-5">
                 <h5 class="text-main-title text-center mb-4" style="font-size: 1.25rem;">Silakan Masuk</h5>
 
-                {{-- Alert untuk menampilkan error umum jika ada --}}
                 @error('email')
                 <div class="alert alert-danger p-2 small" role="alert">
                     <strong>Gagal:</strong> Email atau password salah.
@@ -250,18 +245,14 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
 
     <script>
-        // ------------------------------------------------------------------
-        // SCRIPT BARU: Tampilkan Modal Sukses jika ada Session Success
-        // ------------------------------------------------------------------
         $(document).ready(function() {
-            // Cek apakah ada session 'success' (menggunakan jQuery untuk mengambil nilai Blade)
+
             const successMessage = "<?php echo session('success') ?? ''; ?>";
 
             if (successMessage) {
                 const modalElement = document.getElementById('SuccessModal');
                 const modal = new bootstrap.Modal(modalElement);
-                
-                // Tentukan Judul Berdasarkan Pesan
+             
                 let title = "Berhasil!";
                 let message = successMessage;
 

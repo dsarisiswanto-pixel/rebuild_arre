@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Variabel Warna */
         :root {
             --brand-900: #0a1f44;
             --accent: #4da6ff;
@@ -23,8 +22,6 @@
             color: var(--brand-900);
             padding-top: 80px;
         }
-
-        /* Navbar */
         nav {
             background: #ffffff !important;
         }
@@ -55,8 +52,6 @@
             border-color: var(--accent) !important;
             color: white !important;
         }
-
-        /* Portfolio Cards */
         .portfolio-card {
             border-radius: 10px;
             overflow: hidden;
@@ -140,8 +135,6 @@
         .main-footer .col-md-6 {
             margin-bottom: 30px !important;
         }
-
-        /* Scroll to Top Button */
         #scrollToTopBtn {
             position: fixed;
             bottom: 20px;
@@ -306,10 +299,6 @@
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
     </script>
-
-    <!-- ============================== -->
-    <!-- 🔥 NOTIF LOGIN BERHASIL (SweetAlert) -->
-    <!-- ============================== -->
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
