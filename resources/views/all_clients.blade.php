@@ -39,8 +39,6 @@
             height: 40px;
             width: auto;
         }
-
-        /* Tombol Login */
         .navbar .btn-info {
             background-color: var(--accent);
             border-color: var(--accent);

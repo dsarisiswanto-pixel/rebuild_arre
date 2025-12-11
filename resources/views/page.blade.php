@@ -263,8 +263,6 @@
             font-weight: 600;
             margin-bottom: 20px;
         }
-
-        /* small top scroll progress */
         #topProgress {
             position: fixed;
             left: 0;
@@ -367,35 +365,6 @@
 </head>
 
 <body>
-
-
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm custom-navbar">
-
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#hero">
-                <img src="/assets/img/logo-ws.png" alt="Logo" id="navbarLogo" class="logo-nav">
-            </a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto gap-3">
-                    <li class="nav-item"><a class="nav-link nav-scroll" href="#hero">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link nav-scroll" href="#about">Tentang Kami</a></li>
-                    <li class="nav-item"><a class="nav-link nav-scroll" href="#services">Layanan</a></li>
-                    <li class="nav-item"><a class="nav-link nav-scroll" href="#portfolio">Portfolio</a></li>
-                    <li class="nav-item"><a class="nav-link nav-scroll" href="#kontak">Kontak</a></li>
-
-                    <li class="nav-item">
-                        <a class="nav-link btn-btn-info" href="/login">Login</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
     <div id="topProgress" aria-hidden="true"></div>
 
