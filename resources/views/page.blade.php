@@ -442,7 +442,7 @@
                     <li class="nav-item"><a class="nav-link nav-scroll" href="#kontak">Kontak</a></li>
 
                     <li class="nav-item">
-                        <a class="nav-link btn-btn-info" href="/login">Login</a>
+                        <a class="nav-link btn btn-primary text-white px-3 py-2" href="/login" style="border-radius: 8px;">Login</a>
                     </li>
                 </ul>
             </div>
