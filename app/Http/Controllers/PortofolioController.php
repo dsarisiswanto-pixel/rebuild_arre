@@ -13,19 +13,18 @@ class PortofolioController extends Controller
         return view('page', compact('items'));
     }
 
-  
     public function allClients()
     {
-        $items = Portofolio::all(); 
-        return view('all_clients', compact('items')); 
+        $items = Portofolio::all();
+        return view('all_clients', compact('items'));
     }
+
     public function show($id)
     {
         $item = Portofolio::findOrFail($id);
-        return view('detail_portofolio', compact('item'));
+        return view('detail', compact('item'));
     }
 
-   
     public function dashboard()
     {
         $items = Portofolio::all();
@@ -43,6 +42,7 @@ class PortofolioController extends Controller
             'nama' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'kategori' => 'required|string',
+            'link' => 'nullable|url',
             'tanggal' => 'required|date',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -51,21 +51,22 @@ class PortofolioController extends Controller
 
         if ($request->hasFile('gambar')) {
             $file = $request->file('gambar');
-            $filename = time().'_'.$file->getClientOriginalName();
+            $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('uploads'), $filename);
             $input['gambar'] = $filename;
         }
 
         Portofolio::create($input);
 
-        return redirect()->route('dashboard')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('dashboard')
+            ->with('success', 'Data berhasil ditambahkan!');
     }
+
     public function edit($id)
     {
         $item = Portofolio::findOrFail($id);
         return view('edit', compact('item'));
     }
-
 
     public function update(Request $request, $id)
     {
@@ -86,7 +87,7 @@ class PortofolioController extends Controller
             }
 
             $file = $request->file('gambar');
-            $filename = time().'_'.$file->getClientOriginalName();
+            $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('uploads'), $filename);
             $input['gambar'] = $filename;
         } else {
@@ -95,7 +96,8 @@ class PortofolioController extends Controller
 
         $item->update($input);
 
-        return redirect()->route('dashboard')->with('success', 'Data berhasil diperbarui!');
+        return redirect()->route('dashboard')
+            ->with('success', 'Data berhasil diperbarui!');
     }
 
     public function destroy($id)
@@ -108,6 +110,7 @@ class PortofolioController extends Controller
 
         $item->delete();
 
-        return redirect()->route('dashboard')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('dashboard')
+            ->with('success', 'Data berhasil dihapus!');
     }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,24 +9,59 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root{
-            --primary:#0f172a; 
-            --accent:#2563eb;  
-            --muted:#6b7280;
-            --card:#ffffff;
+        :root {
+            --primary: #0f172a;
+            --accent: #2563eb;
+            --muted: #6b7280;
+            --card: #ffffff;
         }
-        body{ font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:#f1f5f9; margin:0; }
-        .navbar{ background:var(--card); }
-        .sidebar{
-            position:fixed; top:0; left:0; bottom:0;
-            width:260px; background:var(--primary); color:#e6eefc; padding-top:80px;
-            box-shadow: 0 6px 24px rgba(2,6,23,0.12);
+
+        body {
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: #f1f5f9;
+            margin: 0;
+        }
+
+        .navbar {
+            background: var(--card);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 260px;
+            background: var(--primary);
+            color: #e6eefc;
+            padding-top: 80px;
+            box-shadow: 0 6px 24px rgba(2, 6, 23, 0.12);
             z-index: 1020;
         }
-        .sidebar h4{ color:#fff; font-weight:700; margin-bottom:12px; }
-        .sidebar a, .sidebar button{ color:#d1defa; padding:12px 20px; display:block; text-decoration:none; border-radius:8px; margin:6px 12px; }
-        .sidebar a.active, .sidebar a:hover, .sidebar button:hover{ background:#12203a; color:#fff; }
-    
+
+        .sidebar h4 {
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .sidebar a,
+        .sidebar button {
+            color: #d1defa;
+            padding: 12px 20px;
+            display: block;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 6px 12px;
+        }
+
+        .sidebar a.active,
+        .sidebar a:hover,
+        .sidebar button:hover {
+            background: #12203a;
+            color: #fff;
+        }
+
         .sidebar .btn-logout {
             width: 100%;
             text-align: left;
@@ -33,44 +69,85 @@
             background: transparent;
         }
 
-        .main-content{ margin-left:260px; padding:30px; padding-top:90px; min-height:100vh; }
+        .main-content {
+            margin-left: 260px;
+            padding: 30px;
+            padding-top: 90px;
+            min-height: 100vh;
+        }
 
-        .card-ghost{ border-radius:12px; box-shadow:0 8px 30px rgba(15,23,42,0.06); background:var(--card); }
-        .kpi { border-radius:12px; padding:22px; box-shadow:0 6px 20px rgba(2,6,23,0.06); }
-        .btn-accent{ background:var(--accent); border: none; color:#fff; }
-        .btn-accent:hover{ background:#1e40af; }
+        .card-ghost {
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+            background: var(--card);
+        }
 
-        table img{ max-width:70px; border-radius:8px; }
-        
+        .kpi {
+            border-radius: 12px;
+            padding: 22px;
+            box-shadow: 0 6px 20px rgba(2, 6, 23, 0.06);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            border: none;
+            color: #fff;
+        }
+
+        .btn-accent:hover {
+            background: #1e40af;
+        }
+
+        table img {
+            max-width: 70px;
+            border-radius: 8px;
+        }
+
         .success-icon-container {
             width: 90px;
             height: 90px;
             border-radius: 50%;
             background-color: #eef4ff;
-            color: var(--accent); 
+            color: var(--accent);
             font-size: 50px;
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 0 auto 20px;
         }
+
         .btn-success-ok {
             background-color: var(--accent);
             border-color: var(--accent);
             color: white;
             font-weight: 600;
         }
+
         .btn-success-ok:hover {
             background-color: #1e40af;
             border-color: #1e40af;
         }
-        @media (max-width: 768px){
-            .sidebar{ position:relative; width:100%; height:auto; top:0; }
-            .main-content{ margin-left:0; padding-top:20px; }
-            .navbar{ position: relative; }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                top: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding-top: 20px;
+            }
+
+            .navbar {
+                position: relative;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm">
@@ -134,6 +211,7 @@
                                 <th>Deskripsi</th>
                                 <th>Gambar</th>
                                 <th>Kategori</th>
+                                <th>Link</th>
                                 <th>Tanggal</th>
                                 <th>Aksi</th>
                             </tr>
@@ -152,6 +230,13 @@
                                     @endif
                                 </td>
                                 <td>{{ $item->kategori }}</td>
+                                <td class="text-start">
+                                    @if($item->link)
+                                    <a href="{{ $item->link }}" target="_blank">{{ $item->link }}</a>
+                                    @else
+                                    <small class="text-muted">Tidak ada</small>
+                                    @endif
+                                </td>
                                 <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</td>
                                 <td>
                                     <button type="button"
@@ -162,6 +247,7 @@
                                         data-kategori="{{ htmlspecialchars($item->kategori, ENT_QUOTES) }}"
                                         data-tanggal="{{ $item->tanggal }}"
                                         data-gambar="{{ $item->gambar ?? '' }}"
+                                        data-link="{{ $item->link ?? '' }}"
                                         data-bs-toggle="modal"
                                         data-bs-target="#modalEdit">
                                         <i class="fas fa-edit"></i>
@@ -187,7 +273,7 @@
         <div class="modal-dialog modal-dialog-centered" style="max-width:400px;">
             <div class="modal-content">
                 <div class="modal-body text-center p-5">
-                    
+
                     <div class="success-icon-container">
                         <i class="fas fa-check"></i>
                     </div>
@@ -201,7 +287,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="modal fade" id="modalTambah" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -237,6 +323,11 @@
                         </div>
 
                         <div class="mb-3">
+                            <label class="form-label">Link</label>
+                            <input type="url" name="link" class="form-control" placeholder="https://example.com" required>
+                        </div>
+
+                        <div class="mb-3">
                             <label class="form-label">Tanggal</label>
                             <input type="date" name="tanggal" class="form-control" required>
                         </div>
@@ -260,7 +351,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <form id="formEdit" method="POST" enctype="multipart/form-data">
-                    @csrf 
+                    @csrf
                     <div class="modal-header">
                         <h5 class="modal-title">Edit Portofolio</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -293,6 +384,11 @@
                         </div>
 
                         <div class="mb-3">
+                            <label class="form-label">Link</label>
+                            <input type="url" id="edit_link" name="link" class="form-control" placeholder="https://example.com">
+                        </div>
+
+                        <div class="mb-3">
                             <label class="form-label">Tanggal</label>
                             <input type="date" id="edit_tanggal" name="tanggal" class="form-control" required>
                         </div>
@@ -317,87 +413,91 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <script>
-        // --- Search filter ---
-        document.getElementById('searchInput').addEventListener('keyup', function(){
+   
+        document.getElementById('searchInput').addEventListener('keyup', function() {
             const q = this.value.toLowerCase();
-            document.querySelectorAll('#portfolioTable tbody tr').forEach(row=>{
+            document.querySelectorAll('#portfolioTable tbody tr').forEach(row => {
                 row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
             });
         });
 
-        document.querySelectorAll('.btnEdit').forEach(btn=>{
-            btn.addEventListener('click', function(){
+        document.querySelectorAll('.btnEdit').forEach(btn => {
+            btn.addEventListener('click', function() {
                 const id = this.dataset.id || '';
                 const nama = this.dataset.nama || '';
                 const deskripsi = this.dataset.deskripsi || '';
                 const kategori = this.dataset.kategori || '';
                 const tanggal = this.dataset.tanggal || '';
                 const gambar = this.dataset.gambar || '';
+                const link = this.dataset.link || '';
+
                 document.getElementById('edit_id').value = id;
                 document.getElementById('edit_nama').value = nama;
                 document.getElementById('edit_deskripsi').value = deskripsi;
-                
                 document.getElementById('edit_kategori').value = kategori;
-
                 document.getElementById('edit_tanggal').value = tanggal;
+                document.getElementById('edit_link').value = link;
 
                 const preview = document.getElementById('edit_preview');
                 if (gambar) {
-                    preview.src = '/uploads/' + gambar; 
+                    preview.src = '/uploads/' + gambar;
                     preview.style.display = 'block';
                 } else {
                     preview.style.display = 'none';
                 }
                 const form = document.getElementById('formEdit');
-                form.action = '/dashboard/update/' + id; 
+                form.action = '/dashboard/update/' + id;
                 document.getElementById('edit_file').value = '';
             });
         });
 
-        document.getElementById('edit_file').addEventListener('change', function(e){
+        document.getElementById('edit_file').addEventListener('change', function(e) {
             const file = this.files[0];
             if (!file) return;
             const reader = new FileReader();
-            reader.onload = function(ev){
+            reader.onload = function(ev) {
                 const preview = document.getElementById('edit_preview');
                 preview.src = ev.target.result;
                 preview.style.display = 'block';
             };
             reader.readAsDataURL(file);
         });
+
         $(document).ready(function() {
             const successMessage = "<?php echo session('success') ?? ''; ?>";
 
             if (successMessage) {
                 const modalElement = document.getElementById('SuccessModal');
                 const modal = new bootstrap.Modal(modalElement);
-                
+
                 let title = "Berhasil!";
                 let message = successMessage;
 
                 if (successMessage.includes('Login Berhasil')) {
                     title = 'Selamat Datang!';
-                } else if (successMessage.includes('diperbarui')) {
+                } else if
+                 (successMessage.includes('diperbarui')) {
                     title = 'Data Diperbarui';
                 } else if (successMessage.includes('ditambahkan')) {
                     title = 'Data Tersimpan';
                 } else if (successMessage.includes('dihapus')) {
                     title = 'Data Dihapus';
                 } else if (successMessage.includes('Registrasi berhasil')) {
-                    title = 'Login Berhasil';
+                    title = 'Admin Login';
                 } else {
-                    title = 'Terima Kasih.'; 
+                    title = 'Terima Kasih.';
                 }
 
                 $('#successTitle').text(title);
                 $('#successMessage').text(message);
-                
+
                 modal.show();
             }
         });
     </script>
 </body>
+
 </html>

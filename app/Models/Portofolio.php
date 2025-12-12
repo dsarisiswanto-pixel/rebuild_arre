@@ -12,6 +12,7 @@ class Portofolio extends Model
         'nama',
         'deskripsi',
         'kategori',
+        'link',
         'tanggal',
         'gambar',
     ];      

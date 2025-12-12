@@ -19,20 +19,17 @@
             --bg: #f5f8ff;
         }
 
-        html,
         body {
             height: 100%;
-            padding-top: 80px;
-        }
-
-        body {
             font-family: "Poppins", sans-serif;
             background: var(--bg);
             color: var(--brand-900);
             scroll-behavior: smooth;
+            padding-top: 70px;
+            margin: 0;
         }
 
-        nav {
+        nav.navbar {
             background: #ffffff !important;
         }
 
@@ -231,6 +228,41 @@
             text-align: left;
         }
 
+        .object-fit-cover {
+            object-fit: cover;
+        }
+
+        .service-card,
+        .portfolio-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .service-card:hover,
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(77, 166, 255, 0.18);
+        }
+
+        .service-card h5,
+        .portfolio-card h5 {
+            color: var(--brand-900);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .service-card p,
+        .portfolio-card p {
+            color: var(--muted);
+            flex-grow: 1;
+        }
+
         #scrollToTopBtn {
             position: fixed;
             bottom: 20px;
@@ -263,6 +295,7 @@
             font-weight: 600;
             margin-bottom: 20px;
         }
+
         #topProgress {
             position: fixed;
             left: 0;
@@ -274,7 +307,7 @@
             transition: width 0.15s linear;
         }
 
-     
+
         .reveal {
             opacity: 0;
             transform: translateY(20px);
@@ -337,16 +370,19 @@
                 margin-bottom: 30px !important;
             }
         }
+
         #clientCarousel {
             min-height: 450px;
             position: relative;
             padding: 0 40px;
         }
+
         .carousel-control-prev,
         .carousel-control-next {
             width: 30px;
             opacity: 1;
         }
+
         .carousel-control-prev-icon,
         .carousel-control-next-icon {
             background-color: rgba(0, 0, 0, 0.7);
@@ -354,6 +390,7 @@
             padding: 15px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
+
         .carousel-control-prev {
             left: 0;
         }
@@ -387,10 +424,6 @@
                     <li class="nav-item"><a class="nav-link nav-scroll" href="#services">Layanan</a></li>
                     <li class="nav-item"><a class="nav-link nav-scroll" href="#portfolio">Portfolio</a></li>
                     <li class="nav-item"><a class="nav-link nav-scroll" href="#kontak">Kontak</a></li>
-
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-primary text-white px-3 py-2" href="/login" style="border-radius: 8px;">Login</a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -404,44 +437,12 @@
                 <h1 class="hero-title animate__animated animate__zoomIn">Jasa Pembuatan Website di Blitar</h1>
                 <p class="hero-sub animate__animated animate__fadeInLeft animate__delay-1s">Arre Technology — Solutions
                     for Your Websites</p>
-                <a href="#kontak" class="btn btn-primary mt-3 animate__animated animate__fadeInLeft animate__delay-2s">Mulai</a>
             </div>
             <div class="hero-image order-1 order-md-2 animate__animated animate__fadeInRight animate__delay-1s">
                 <img src="/assets/img/Web devices.gif" alt="Website Creator Illustration" class="img-fluid" id="heroImg">
             </div>
         </div>
     </section>
-
-    <section id="clients" class="clients section-bg py-5">
-        <div class="container">
-            <div class="row justify-content-center" data-aos="zoom-in">
-                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center mb-3 reveal">
-                    <img src="/assets/img/cyber.png" alt="Client 1" loading="lazy">
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center mb-3 reveal">
-                    <img src="/assets/img/client-2.png" alt="Client 2" loading="lazy">
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center mb-3 reveal">
-                    <img src="/assets/img/client-3.png" alt="Client 3" loading="lazy">
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center mb-3 reveal">
-                    <img src="/assets/img/client-4.png" alt="Client 4" loading="lazy">
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center mb-3 reveal">
-                    <img src="/assets/img/client-5.png" alt="Client 5" loading="lazy">
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center mb-3 reveal">
-                    <img src="/assets/img/client-6.png" alt="Client 6" loading="lazy">
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="about" class="py-5 container">
         <h2 class="section-title reveal">Tentang Kami</h2>
         <div class="section-line"></div>
@@ -513,76 +514,71 @@
     </section>
     <section id="portfolio" class="py-5 bg-light">
         <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="section-title reveal" style="letter-spacing: 3px;">PROJECT</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="text-center mb-4">
-                <h5 class="text-dark reveal">Klien Kami</h5>
-            </div>
+            <h2 class="section-title text-center mb-4">Portfolio</h2>
+            <div class="section-line"></div>
 
             @php
             $chunks = $items->chunk(3);
             $active = true;
             @endphp
 
-            <div id="clientCarousel" class="carousel slide" data-bs-interval="false">
-
-                <div class="carousel-indicators">
-                    @foreach ($chunks as $key => $chunk)
-                    <button
-                        type="button"
-                        data-bs-target="#clientCarousel"
-                        data-bs-slide-to="{{ $key }}"
-                        class="{{ $key === 0 ? 'active' : '' }}"
-                        aria-label="Slide {{ $key + 1 }}">
-                    </button>
-                    @endforeach
-                </div>
+            <div id="clientCarousel" class="carousel slide position-relative" data-bs-interval="false">
                 <div class="carousel-inner">
-                    @foreach ($chunks as $chunk)
+                    @foreach($chunks as $chunk)
                     <div class="carousel-item {{ $active ? 'active' : '' }}">
-                        <div class="row justify-content-center portfolio-grid">
-                            @foreach ($chunk as $item)
-                            <div class="col-lg-4 col-md-6 col-sm-12 mb-4 reveal">
-                                <div class="card h-100 border-0 shadow-sm portfolio-card">
-
-                                    @if($item->gambar && file_exists(public_path('uploads/' . $item->gambar)))
-                                    <img src="{{ asset('uploads/' . $item->gambar) }}" alt="{{ $item->nama }}" class="card-img-top img-fluid rounded">
-                                    @else
-                                    <img src="{{ asset('uploads/default.png') }}" alt="No Image" class="card-img-top img-fluid rounded">
-                                    @endif
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title mb-3">{{ $item->nama }}</h5>
+                        <div class="row justify-content-center g-4">
+                            @foreach($chunk as $item)
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="card portfolio-card d-flex flex-column h-100">
+                                    <div style="height:200px; overflow:hidden;">
+                                        @if($item->gambar && file_exists(public_path('uploads/' . $item->gambar)))
+                                        <img src="{{ asset('uploads/' . $item->gambar) }}" alt="{{ $item->nama }}"
+                                            class="img-fluid w-100 h-100 object-fit-cover">
+                                        @else
+                                        <img src="{{ asset('uploads/default.png') }}" alt="No Image"
+                                            class="img-fluid w-100 h-100 object-fit-cover">
+                                        @endif
+                                    </div>
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title">{{ $item->nama }}</h5>
                                         <p class="card-text">{{ $item->deskripsi }}</p>
+                                        <div class="mt-auto d-flex gap-2 justify-content-center">
+                                            <button class="btn btn-sm btn-outline-primary"
+                                                @if(!empty($item->link))
+                                                onclick="window.open('{{ $item->link }}', '_blank')"
+                                                @else disabled
+                                                @endif>Preview</button>
+                                           <a class="btn btn-sm btn-outline-primary" href='{{ route('detail', $item->id) }}'>Detail</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             @endforeach
                         </div>
                     </div>
+
                     @php $active = false; @endphp
                     @endforeach
                 </div>
 
-
                 @if(count($items) > 3)
-                <button class="carousel-control-prev" type="button" data-bs-target="#clientCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
+                <button class="carousel-control-prev position-absolute top-50 start-0 translate-middle-y"
+                    type="button" data-bs-target="#clientCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#clientCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
+                <button class="carousel-control-next position-absolute top-50 end-0 translate-middle-y"
+                    type="button" data-bs-target="#clientCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
                 </button>
                 @endif
             </div>
 
             <div class="text-center mt-5">
-                <a href="{{ route('client.all') }}" class="btn btn-lg btn-secondary">
-                    Lihat Semua Klien
+                <a href="{{ route('client.all') }}" class="btn btn-lg btn-primary">
+                    Lihat Semua Portofolio
                 </a>
             </div>
+
         </div>
     </section>
 
