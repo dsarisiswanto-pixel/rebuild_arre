@@ -156,7 +156,7 @@
         </div>
     </nav>
 
-    <aside class="sidebar mt-5 pt-5">
+    <aside class="sidebar">
         <div class="px-3">
             <h4 class="text-center"><i class="fas fa-chart-line me-2"></i>Dashboard</h4>
             <a href="/dashboard" class="active"><i class="fas fa-home me-2"></i>Dashboard</a>

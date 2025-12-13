@@ -4,12 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semua Klien - Arre Technology</title>
+    <title>Arre Technology</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+ 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    
+
     <style>
         :root {
             --brand-900: #0a1f44;
@@ -21,20 +27,22 @@
             font-family: "Poppins", sans-serif;
             background: var(--bg);
             color: var(--brand-900);
+            scroll-behavior: smooth;
             padding-top: 80px;
         }
 
         nav {
-            background: #ffffff !important;
+            background: #fff !important;
         }
 
         nav a {
             color: #000 !important;
             font-weight: 500;
+            transition: color 0.3s;
         }
 
         nav a:hover {
-            color: #1B3C53 !important;
+            color: var(--accent) !important;
         }
 
         #navbarLogo {
@@ -42,45 +50,44 @@
             width: auto;
         }
 
-        .navbar .btn-info {
-            background-color: var(--accent);
-            border-color: var(--accent);
-            color: white;
-        }
 
-        .navbar .btn-info:hover {
-            background-color: var(--accent) !important;
-            border-color: var(--accent) !important;
-            color: white !important;
+        #portfolioGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
         }
 
         .portfolio-card {
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
+            position: relative;
+            background: #fff;
         }
 
         .portfolio-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
         }
 
         .portfolio-card img {
             width: 100%;
             height: 250px;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform 0.5s ease, filter 0.3s ease;
         }
 
         .portfolio-card:hover img {
-            transform: scale(1.05);
+            transform: scale(1.08);
+            filter: brightness(0.85);
         }
 
         .btn-hover-scale:hover {
             transform: scale(1.05);
-            transition: transform 0.3s;
+            transition: transform 0.3s ease;
         }
+
 
         .main-footer {
             background-color: #ffffff;
@@ -94,14 +101,6 @@
             font-size: 1.15rem;
             font-weight: 600;
             margin-bottom: 20px;
-        }
-
-        .main-footer p,
-        .main-footer li,
-        .main-footer a,
-        .main-footer .text-secondary,
-        .main-footer .small {
-            color: #5a5a5a !important;
         }
 
         .footer-link {
@@ -125,24 +124,22 @@
             justify-content: center;
             align-items: center;
             font-size: 18px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.3s;
         }
 
         .social-icon-circle:hover {
             background-color: var(--accent);
+            transform: scale(1.1);
         }
 
         .copyright {
             background-color: #1a1e21;
             color: #ffffff;
             text-align: left;
+            padding: 10px 0;
         }
 
-        .main-footer .col-lg-3,
-        .main-footer .col-md-6 {
-            margin-bottom: 30px !important;
-        }
-
+   
         #scrollToTopBtn {
             position: fixed;
             bottom: 20px;
@@ -167,6 +164,14 @@
         #scrollToTopBtn:hover {
             background-color: #3c95e0;
             opacity: 1;
+        }
+
+        @media(max-width: 768px) {
+            .portfolio-card img { height: 200px; }
+        }
+
+        @media(max-width: 576px) {
+            .portfolio-card img { height: 180px; }
         }
     </style>
 </head>
@@ -194,39 +199,29 @@
         </div>
     </nav>
 
-    <section class="py-5 container" style="margin-top:0;">
+    <section class="py-5 container">
         <h2 class="text-center mb-4 animate__animated animate__fadeInDown">Portofolio</h2>
         <div class="border-bottom mb-5"></div>
 
-        <div class="row g-4">
+        <div id="portfolioGrid">
             @forelse($items as $item)
-            <div class="col-lg-4 col-md-6 col-sm-12 animate__animated animate__fadeInUp" style="animation-delay:0.2s;">
+            <div class="portfolio-item">
                 <div class="card h-100 border-0 shadow-sm portfolio-card">
-
                     <img src="{{ $item->gambar ? asset('uploads/'.$item->gambar) : asset('uploads/default.png') }}"
-                        alt="{{ $item->nama }}"
-                        class="card-img-top img-fluid rounded">
-
+                        alt="{{ $item->nama }}" class="card-img-top img-fluid rounded">
                     <div class="card-body d-flex flex-column text-center">
                         <h5 class="card-title mb-2">{{ $item->nama }}</h5>
-                        <p class="card-text">{{ \Illuminate\Support\Str::limit($item->deskripsi, 50) }}</p>
-
+                        <p class="card-text">{{ \Illuminate\Support\Str::limit($item->deskripsi, 80) }}</p>
                         <div class="mt-auto d-flex justify-content-center gap-2">
                             <button class="btn btn-sm btn-outline-primary btn-hover-scale"
-                                @if(!empty($item->link))
-                                onclick="window.open('{{ $item->link }}', '_blank')"
-                                @else
-                                disabled
-                                @endif>
+                                @if(!empty($item->link)) onclick="window.open('{{ $item->link }}', '_blank')" @else disabled @endif>
                                 Preview
                             </button>
-
                             <a href="{{ route('detail', $item->id) }}" class="btn btn-sm btn-outline-primary btn-hover-scale">
                                 Detail
                             </a>
                         </div>
                     </div>
-
                 </div>
             </div>
             @empty
@@ -237,6 +232,7 @@
         </div>
     </section>
 
+
     <footer class="main-footer">
         <div class="container pt-5">
             <div class="row">
@@ -246,7 +242,6 @@
                     <p class="small mb-1"><strong>Phone:</strong> 0822-3131-6699</p>
                     <p class="small"><strong>Email:</strong> reza@dbn.net.id</p>
                 </div>
-
                 <div class="col-lg-2 col-md-6 mb-4">
                     <h5 class="footer-col-title mb-3">Useful Links</h5>
                     <ul class="list-unstyled">
@@ -257,7 +252,6 @@
                         <li><a href="#" class="footer-link small">> Privacy policy</a></li>
                     </ul>
                 </div>
-
                 <div class="col-lg-3 col-md-6 mb-4">
                     <h5 class="footer-col-title mb-3">Our Services</h5>
                     <ul class="list-unstyled">
@@ -268,20 +262,18 @@
                         <li><a href="#" class="footer-link small">> Graphic Design</a></li>
                     </ul>
                 </div>
-
                 <div class="col-lg-3 col-md-6 mb-4">
                     <h5 class="footer-col-title mb-3">Our Social Networks</h5>
-                    <div class="d-flex mt-3">
-                        <a href="#" class="social-icon-circle me-2"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon-circle me-2"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon-circle me-2"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon-circle me-2"><i class="fab fa-skype"></i></a>
+                    <div class="d-flex mt-3 flex-wrap gap-2">
+                        <a href="#" class="social-icon-circle"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon-circle"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon-circle"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon-circle"><i class="fab fa-skype"></i></a>
                         <a href="#" class="social-icon-circle"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="copyright py-3 mt-4">
             <div class="container small">
                 © Copyright <strong>Arre Technology</strong>. All Rights Reserved
@@ -294,25 +286,30 @@
     </button>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-        window.onscroll = function() {
-            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-                scrollToTopBtn.style.display = "flex";
-            } else {
-                scrollToTopBtn.style.display = "none";
-            }
-        };
-        scrollToTopBtn.addEventListener("click", function() {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
+        window.addEventListener("scroll", () => {
+            scrollToTopBtn.style.display = window.scrollY > 200 ? "flex" : "none";
         });
-    </script>
+        scrollToTopBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    const card = entry.target.querySelector('.portfolio-card');
+                    card.classList.add('animate__animated', 'animate__fadeInUp');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {threshold:0.2});
+
+        portfolioItems.forEach(item => observer.observe(item));
+    </script>
 
     @if(session('success'))
     <script>
@@ -327,5 +324,4 @@
     @endif
 
 </body>
-
 </html>

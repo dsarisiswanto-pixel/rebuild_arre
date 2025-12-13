@@ -210,13 +210,6 @@
                         <i class="fas fa-sign-in-alt me-2"></i> MASUK
                     </button>
                     
-                    <p class="text-center small mt-3">
-                        Belum punya akun? 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="link-muted text-decoration-none fw-bold">Daftar di sini</a>
-                        @endif
-                    </p>
-
                 </form>
             </div>
         </div>
