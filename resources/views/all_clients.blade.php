@@ -21,6 +21,7 @@
             --brand-900: #0a1f44;
             --accent: #4da6ff;
             --bg: #f5f8ff;
+            --brand-700: #0f2f66;
         }
 
         body {
@@ -90,7 +91,7 @@
 
 
         .main-footer {
-            background: linear-gradient(135deg, var(--brand-900), #132f63);
+            background: linear-gradient(135deg, var(--brand-900), var(--brand-700));
             color: #ffffff;
             padding-top: 60px;
             border-top: none;
@@ -111,15 +112,14 @@
         }
 
         .footer-link:hover {
-            color: var(--accent);
+            color: #ffffff;
         }
-
 
         .social-icon-circle {
             width: 40px;
             height: 40px;
-            background-color: rgba(255, 255, 255, 0.18);
-            color: #fff;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -133,14 +133,12 @@
             transform: scale(1.1);
         }
 
-    
         .copyright {
-            background: linear-gradient(135deg, #081833, #0a1f44);
+            background-color: rgba(0, 0, 0, 0.25);
             color: rgba(255, 255, 255, 0.7);
             text-align: left;
-            padding: 12px 0;
+            padding: 10px 0;
         }
-
 
         #scrollToTopBtn {
             position: fixed;
@@ -179,6 +177,50 @@
                 height: 180px;
             }
         }
+
+        .btn-wa {
+            background: #0d6efd;
+            color: #fff !important;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-wa:hover {
+            background: #0b5ed7;
+            transform: translateY(-1px);
+        }
+
+        .main-footer {
+            background: linear-gradient(135deg, var(--brand-900), var(--brand-700));
+            padding-top: 60px;
+            color: #ffffff;
+        }
+
+        .social-icon-circle {
+            width: 38px;
+            height: 38px;
+            background: rgba(255, 255, 255, 0.18);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .social-icon-circle:hover {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .copyright {
+            background: linear-gradient(135deg, #081833, #0a1f44);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 14px 0;
+            font-size: 14px;
+        }
     </style>
 </head>
 
@@ -199,6 +241,14 @@
                     <li class="nav-item"><a class="nav-link" href="/#services">Layanan</a></li>
                     <li class="nav-item"><a class="nav-link" href="/#portfolio">Portfolio</a></li>
                     <li class="nav-item"><a class="nav-link" href="/#kontak">Kontak</a></li>
+                    <li class="nav-item">
+                        <a class="btn btn-wa ms-lg-2 px-3 py-2"
+                            href="https://wa.me/6282231316699?text=Halo%20Arre%20Technology,%20saya%20ingin%20konsultasi"
+                            target="_blank"
+                            rel="noopener">
+                            <i class="fab fa-whatsapp me-1"></i> Hubungi Kami
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -291,7 +341,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
                     <h5 class="footer-col-title mb-3">Our Social Networks</h5>
-                    <div class="d-flex mt-3 flex-wrap gap-2">
+                    <div class="d-flex mt-3 flex-nowrap gap-2">
                         <a href="#" class="social-icon-circle"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="social-icon-circle"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="social-icon-circle"><i class="fab fa-instagram"></i></a>

@@ -722,15 +722,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var tooltipTriggerList = [].slice.call(
-                document.querySelectorAll('[data-bs-toggle="tooltip"]')
-            )
-            tooltipTriggerList.map(function(tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl)
-            })
-        })
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebarMenu');
+            const backdrop = document.querySelector('.sidebar-backdrop');
+
+            sidebar.classList.toggle('show');
+
+            if (sidebar.classList.contains('show')) {
+                backdrop.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            } else {
+                backdrop.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        }
     </script>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
