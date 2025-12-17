@@ -9,9 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-      
         :root {
-            --accent: #0a1f44; 
+            --accent: #0a1f44;
             --bg-gradient-start: rgba(255, 255, 255, 0.6);
             --bg-gradient-end: rgba(255, 255, 255, 0.2);
             --text-color: #1e1e2f;
@@ -49,7 +48,7 @@
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
 
-    
+
         .card-header-visual {
             background: linear-gradient(135deg, var(--accent), #162a66);
             color: white;
@@ -128,14 +127,14 @@
             border-radius: 12px 0 0 12px;
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
-        
+
 
         .login-success-icon-container {
             width: 70px;
             height: 70px;
             border-radius: 50%;
-            background-color: rgba(37, 99, 235, 0.1); 
-            color: #2563eb; 
+            background-color: rgba(37, 99, 235, 0.1);
+            color: #2563eb;
             font-size: 35px;
             display: flex;
             justify-content: center;
@@ -144,17 +143,17 @@
         }
 
         .btn-success-ok {
-        
+
             background-color: var(--accent);
             border-color: var(--accent);
             color: white;
             font-weight: 600;
         }
+
         .btn-success-ok:hover {
             background-color: #061734;
             border-color: #061734;
         }
-
     </style>
 </head>
 
@@ -175,7 +174,7 @@
                     <strong>Gagal:</strong> Email atau password salah.
                 </div>
                 @enderror
-                
+
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
 
@@ -209,7 +208,11 @@
                     <button type="submit" class="btn btn-primary w-100 mb-3">
                         <i class="fas fa-sign-in-alt me-2"></i> MASUK
                     </button>
-                    
+                    <a href="{{ url('/') }}" class="btn btn-outline-secondary w-100">
+                        <i class="fas fa-arrow-left me-2"></i> KEMBALI
+                    </a>
+
+
                 </form>
             </div>
         </div>
@@ -219,7 +222,7 @@
         <div class="modal-dialog modal-dialog-centered" style="max-width:350px;">
             <div class="modal-content">
                 <div class="modal-body text-center p-4">
-                    
+
                     <div class="login-success-icon-container">
                         <i class="fas fa-check"></i>
                     </div>
@@ -235,7 +238,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -245,7 +248,7 @@
             if (successMessage) {
                 const modalElement = document.getElementById('SuccessModal');
                 const modal = new bootstrap.Modal(modalElement);
-             
+
                 let title = "Berhasil!";
                 let message = successMessage;
 
@@ -253,11 +256,11 @@
                     title = 'Anda Telah Logout';
                 } else if (successMessage.includes('Registrasi berhasil')) {
                     title = 'Pendaftaran Sukses';
-                } 
+                }
 
                 $('#successTitle').text(title);
                 $('#successMessage').text(message);
-                
+
                 modal.show();
             }
         });

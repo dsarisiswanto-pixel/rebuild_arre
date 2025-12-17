@@ -11,10 +11,10 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
- 
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <style>
         :root {
@@ -139,7 +139,7 @@
             padding: 10px 0;
         }
 
-   
+
         #scrollToTopBtn {
             position: fixed;
             bottom: 20px;
@@ -167,11 +167,15 @@
         }
 
         @media(max-width: 768px) {
-            .portfolio-card img { height: 200px; }
+            .portfolio-card img {
+                height: 200px;
+            }
         }
 
         @media(max-width: 576px) {
-            .portfolio-card img { height: 180px; }
+            .portfolio-card img {
+                height: 180px;
+            }
         }
     </style>
 </head>
@@ -193,37 +197,57 @@
                     <li class="nav-item"><a class="nav-link" href="/#services">Layanan</a></li>
                     <li class="nav-item"><a class="nav-link" href="/#portfolio">Portfolio</a></li>
                     <li class="nav-item"><a class="nav-link" href="/#kontak">Kontak</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-
     <section class="py-5 container">
         <h2 class="text-center mb-4 animate__animated animate__fadeInDown">Portofolio</h2>
         <div class="border-bottom mb-5"></div>
 
         <div id="portfolioGrid">
             @forelse($items as $item)
+
+            @php
+            $gambar = json_decode($item->gambar, true);
+            if (!is_array($gambar) || count($gambar) === 0) {
+            $gambar = ['default.jpg'];
+            }
+
+            @endphp
             <div class="portfolio-item">
                 <div class="card h-100 border-0 shadow-sm portfolio-card">
-                    <img src="{{ $item->gambar ? asset('uploads/'.$item->gambar) : asset('uploads/default.png') }}"
-                        alt="{{ $item->nama }}" class="card-img-top img-fluid rounded">
+
+                    <img src="{{ asset('uploads/'.$gambar[0]) }}"
+                        alt="   "
+                        class="card-img-top img-fluid rounded">
+
                     <div class="card-body d-flex flex-column text-center">
                         <h5 class="card-title mb-2">{{ $item->nama }}</h5>
-                        <p class="card-text">{{ \Illuminate\Support\Str::limit($item->deskripsi, 80) }}</p>
+
+                        <p class="card-text">
+                            {{ \Illuminate\Support\Str::limit($item->deskripsi, 80) }}
+                        </p>
+
                         <div class="mt-auto d-flex justify-content-center gap-2">
                             <button class="btn btn-sm btn-outline-primary btn-hover-scale"
-                                @if(!empty($item->link)) onclick="window.open('{{ $item->link }}', '_blank')" @else disabled @endif>
+                                @if(!empty($item->link))
+                                onclick="window.open('{{ $item->link }}', '_blank')"
+                                @else
+                                disabled
+                                @endif>
                                 Preview
                             </button>
-                            <a href="{{ route('detail', $item->id) }}" class="btn btn-sm btn-outline-primary btn-hover-scale">
+
+                            <a href="{{ route('detail', $item->id) }}"
+                                class="btn btn-sm btn-outline-primary btn-hover-scale">
                                 Detail
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
+
             @empty
             <div class="col-12 text-center">
                 <p>Tidak ada klien yang ditemukan.</p>
@@ -231,6 +255,7 @@
             @endforelse
         </div>
     </section>
+
 
 
     <footer class="main-footer">
@@ -294,19 +319,24 @@
             scrollToTopBtn.style.display = window.scrollY > 200 ? "flex" : "none";
         });
         scrollToTopBtn.addEventListener("click", () => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
         });
 
         const portfolioItems = document.querySelectorAll('.portfolio-item');
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
-                if(entry.isIntersecting){
+                if (entry.isIntersecting) {
                     const card = entry.target.querySelector('.portfolio-card');
                     card.classList.add('animate__animated', 'animate__fadeInUp');
                     observer.unobserve(entry.target);
                 }
             });
-        }, {threshold:0.2});
+        }, {
+            threshold: 0.2
+        });
 
         portfolioItems.forEach(item => observer.observe(item));
     </script>
@@ -324,4 +354,5 @@
     @endif
 
 </body>
+
 </html>

@@ -44,28 +44,28 @@ class PortofolioController extends Controller
             'kategori' => 'required|string',
             'link' => 'nullable|url',
             'tanggal' => 'required|date',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'gambar.*' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $input = $request->all();
+        $input = $request->only(['nama', 'deskripsi', 'kategori', 'link', 'tanggal']);
 
+        $gambarNames = [];
         if ($request->hasFile('gambar')) {
-            $file = $request->file('gambar');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads'), $filename);
-            $input['gambar'] = $filename;
+            foreach ($request->file('gambar') as $file) {
+                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads'), $filename);
+                $gambarNames[] = $filename;
+            }
         }
+
+        $input['gambar'] = json_encode($gambarNames);
 
         Portofolio::create($input);
 
-        return redirect()->route('dashboard')
-            ->with('success', 'Data berhasil ditambahkan!');
-    }
-
-    public function edit($id)
-    {
-        $item = Portofolio::findOrFail($id);
-        return view('edit', compact('item'));
+        return redirect()->route('dashboard')->with([
+            'notif_type' => 'add',
+            'notif_message' => 'Portofolio berhasil ditambahkan!'
+        ]);
     }
 
     public function update(Request $request, $id)
@@ -74,43 +74,66 @@ class PortofolioController extends Controller
             'nama' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'kategori' => 'required|string',
+            'link' => 'nullable|url',
             'tanggal' => 'required|date',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'gambar.*' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $item = Portofolio::findOrFail($id);
-        $input = $request->all();
+        $portofolio = Portofolio::findOrFail($id);
+
+        $input = $request->only(['nama', 'deskripsi', 'kategori', 'link', 'tanggal']);
+
+        $oldImages = json_decode($portofolio->gambar, true) ?? [];
+
 
         if ($request->hasFile('gambar')) {
-            if ($item->gambar && file_exists(public_path('uploads/' . $item->gambar))) {
-                unlink(public_path('uploads/' . $item->gambar));
+            foreach ($oldImages as $img) {
+                $path = public_path('uploads/' . $img);
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+            }
+            $newImages = [];
+            foreach ($request->file('gambar') as $file) {
+                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads'), $filename);
+                $newImages[] = $filename;
             }
 
-            $file = $request->file('gambar');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads'), $filename);
-            $input['gambar'] = $filename;
+            $input['gambar'] = json_encode($newImages);
         } else {
-            $input['gambar'] = $item->gambar;
+         
+            $input['gambar'] = json_encode($oldImages);
         }
 
-        $item->update($input);
+        $portofolio->update($input);
 
-        return redirect()->route('dashboard')
-            ->with('success', 'Data berhasil diperbarui!');
+        return redirect()->route('dashboard')->with([
+            'notif_type' => 'edit',
+            'notif_message' => 'Portofolio berhasil diperbarui!'
+        ]);
     }
+
 
     public function destroy($id)
     {
         $item = Portofolio::findOrFail($id);
 
-        if ($item->gambar && file_exists(public_path('uploads/' . $item->gambar))) {
-            unlink(public_path('uploads/' . $item->gambar));
+        $images = json_decode($item->gambar, true);
+        if ($images) {
+            foreach ($images as $img) {
+                $path = public_path('uploads/' . $img);
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+            }
         }
 
         $item->delete();
 
-        return redirect()->route('dashboard')
-            ->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('dashboard')->with([
+            'notif_type' => 'delete',
+            'notif_message' => 'Portofolio berhasil dihapus!'
+        ]);
     }
 }

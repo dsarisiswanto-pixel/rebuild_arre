@@ -398,6 +398,41 @@
         .carousel-control-next {
             right: 0;
         }
+
+        .btn-wa {
+            background: #0d6efd;
+            color: #fff !important;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-wa:hover {
+            background: #0b5ed7;
+            transform: translateY(-1px);
+        }
+
+        .clients .logo-row {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .client-logo {
+            max-height: 55px;
+            width: auto;
+            opacity: 0.8;
+            filter: grayscale(100%);
+            transition: 0.3s;
+        }
+
+        .client-logo:hover {
+            filter: grayscale(0);
+            opacity: 1;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 
@@ -418,13 +453,33 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto gap-3">
-                    <li class="nav-item"><a class="nav-link nav-scroll" href="#hero">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link nav-scroll" href="#about">Tentang Kami</a></li>
-                    <li class="nav-item"><a class="nav-link nav-scroll" href="#services">Layanan</a></li>
-                    <li class="nav-item"><a class="nav-link nav-scroll" href="#portfolio">Portfolio</a></li>
-                    <li class="nav-item"><a class="nav-link nav-scroll" href="#kontak">Kontak</a></li>
+                <ul class="navbar-nav ms-auto gap-3 align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link nav-scroll" href="#hero">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-scroll" href="#about">Tentang Kami</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-scroll" href="#services">Layanan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-scroll" href="#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-scroll" href="#kontak">Kontak</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-wa ms-lg-2 px-3 py-2"
+                            href="https://wa.me/6282231316699?text=Halo%20Arre%20Technology,%20saya%20ingin%20konsultasi"
+                            target="_blank"
+                            rel="noopener">
+                            <i class="fab fa-whatsapp me-1"></i> Hubungi Kami
+                        </a>
+                    </li>
+
                 </ul>
+
             </div>
         </div>
     </nav>
@@ -443,6 +498,24 @@
             </div>
         </div>
     </section>
+    <section class="clients py-4">
+        <div class="container text-center">
+            <div class="logo-row">
+                <img src="/assets/img/logo-perusahaan/1.png" class="client-logo">
+                <img src="/assets/img/logo-perusahaan/2.png" class="client-logo">
+                <img src="/assets/img/logo-perusahaan/3.png" class="client-logo">
+                <img src="/assets/img/logo-perusahaan/4.png" class="client-logo">
+                <img src="/assets/img/logo-perusahaan/5.png" class="client-logo">
+                <img src="/assets/img/logo-perusahaan/6.png" class="client-logo">
+                <img src="/assets/img/logo-perusahaan/C.png" class="client-logo">
+                <img src="/assets/img/logo-perusahaan/RRTC 2 (PNG).png" class="client-logo">
+            </div>
+        </div>
+    </section>
+
+
+
+
     <section id="about" class="py-5 container">
         <h2 class="section-title reveal">Tentang Kami</h2>
         <div class="section-line"></div>
@@ -515,58 +588,73 @@
     <section id="portfolio" class="py-5 bg-light">
         <div class="container">
             <h2 class="section-title text-center mb-4">Portfolio</h2>
-            <div class="section-line"></div>
+            <div class="section-line mb-5"></div>
 
             @php
             $chunks = $items->chunk(3);
             $active = true;
             @endphp
 
-            <div id="clientCarousel" class="carousel slide position-relative" data-bs-interval="false">
+            <div id="clientCarousel" class="carousel slide" data-bs-interval="false">
                 <div class="carousel-inner">
+
                     @foreach($chunks as $chunk)
                     <div class="carousel-item {{ $active ? 'active' : '' }}">
-                        <div class="row justify-content-center g-4">
+                        <div class="row g-4">
+
                             @foreach($chunk as $item)
+                            @php
+                            $gambar = json_decode($item->gambar, true);
+                            $foto = $gambar[0] ?? 'default.png';
+                            @endphp
+
                             <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="card portfolio-card d-flex flex-column h-100">
+                                <div class="card h-100 shadow-sm">
+
                                     <div style="height:200px; overflow:hidden;">
-                                        @if($item->gambar && file_exists(public_path('uploads/' . $item->gambar)))
-                                        <img src="{{ asset('uploads/' . $item->gambar) }}" alt="{{ $item->nama }}"
-                                            class="img-fluid w-100 h-100 object-fit-cover">
-                                        @else
-                                        <img src="{{ asset('uploads/default.png') }}" alt="No Image"
-                                            class="img-fluid w-100 h-100 object-fit-cover">
-                                        @endif
+                                        <img src="{{ asset('uploads/' . $foto) }}"
+                                            class="w-100 h-100"
+                                            style="object-fit:cover;"
+                                            alt="{{ $item->nama }}">
                                     </div>
-                                    <div class="card-body d-flex flex-column">
-                                        <h5 class="card-title">{{ $item->nama }}</h5>
-                                        <p class="card-text">{{ $item->deskripsi }}</p>
+
+                                    <div class="card-body d-flex flex-column text-center">
+                                        <h5 class="fw-bold">{{ $item->nama }}</h5>
+                                        <p class="small text-muted">
+                                            {{ Str::limit($item->deskripsi, 80) }}
+                                        </p>
+
                                         <div class="mt-auto d-flex gap-2 justify-content-center">
+                                            @if($item->link)
                                             <button class="btn btn-sm btn-outline-primary"
-                                                @if(!empty($item->link))
-                                                onclick="window.open('{{ $item->link }}', '_blank')"
-                                                @else disabled
-                                                @endif>Preview</button>
-                                           <a class="btn btn-sm btn-outline-primary" href='{{ route('detail', $item->id) }}'>Detail</a>
+                                                onclick="window.open('{{ $item->link }}','_blank')">
+                                                Preview
+                                            </button>
+                                            @endif
+                                            <a href="{{ route('detail', $item->id) }}"
+                                                class="btn btn-sm btn-outline-primary">
+                                                Detail
+                                            </a>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                             @endforeach
+
                         </div>
                     </div>
-
                     @php $active = false; @endphp
                     @endforeach
+
                 </div>
 
-                @if(count($items) > 3)
-                <button class="carousel-control-prev position-absolute top-50 start-0 translate-middle-y"
+                @if($items->count() > 3)
+                <button class="carousel-control-prev"
                     type="button" data-bs-target="#clientCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon"></span>
                 </button>
-                <button class="carousel-control-next position-absolute top-50 end-0 translate-middle-y"
+                <button class="carousel-control-next"
                     type="button" data-bs-target="#clientCarousel" data-bs-slide="next">
                     <span class="carousel-control-next-icon"></span>
                 </button>
@@ -578,7 +666,6 @@
                     Lihat Semua Portofolio
                 </a>
             </div>
-
         </div>
     </section>
 
