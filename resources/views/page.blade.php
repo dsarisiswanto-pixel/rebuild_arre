@@ -421,7 +421,7 @@
         }
 
         .client-logo {
-            max-height: 55px;
+            max-height: 50px;
             width: auto;
             opacity: 0.8;
             filter: grayscale(100%);
@@ -508,7 +508,7 @@
                 <img src="/assets/img/logo-perusahaan/5.png" class="client-logo">
                 <img src="/assets/img/logo-perusahaan/6.png" class="client-logo">
                 <img src="/assets/img/logo-perusahaan/C.png" class="client-logo">
-                <img src="/assets/img/logo-perusahaan/RRTC 2 (PNG).png" class="client-logo">
+                <img src="/assets/img/WhatsApp Image 2025-12-17 at 09.08.13.jpeg" class="client-logo">
             </div>
         </div>
     </section>
