@@ -81,16 +81,10 @@
 
         .hero-image img {
             max-width: 450px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(77, 166, 255, 0.4);
             transition: transform 0.5s, box-shadow 0.5s;
             will-change: transform;
         }
 
-        .hero-image img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(77, 166, 255, 0.6);
-        }
 
         .section-title {
             font-size: 32px;
@@ -190,25 +184,32 @@
         }
 
         .main-footer {
-            background-color: #ffffff;
-            color: #000000;
+            background: linear-gradient(135deg, var(--brand-900), var(--brand-700));
+            color: #ffffff;
             padding-top: 60px;
         }
 
+        .footer-col-title {
+            color: #ffffff;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
         .footer-link {
-            color: #000000;
+            color: rgba(255, 255, 255, 0.85);
             transition: color 0.3s;
             line-height: 2.2;
         }
 
         .footer-link:hover {
-            color: #000000;
+            color: #ffffff;
         }
 
         .social-icon-circle {
             width: 40px;
             height: 40px;
-            background-color: #495057;
+            background-color: rgba(255, 255, 255, 0.15);
             color: #fff;
             border-radius: 50%;
             display: flex;
@@ -223,8 +224,8 @@
         }
 
         .copyright {
-            background-color: #1a1e21;
-            color: #aaa;
+            background-color: rgba(0, 0, 0, 0.25);
+            color: rgba(255, 255, 255, 0.7);
             text-align: left;
         }
 
@@ -412,18 +413,44 @@
             transform: translateY(-1px);
         }
 
+        .clients {
+            overflow: hidden;
+        }
+
         .clients .logo-row {
             display: flex;
-            flex-wrap: nowrap;
-            justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 32px;
+        }
+
+
+        @media (min-width: 992px) {
+            .clients .logo-row {
+                justify-content: space-between;
+                flex-wrap: nowrap;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .clients .logo-row {
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 10px;
+                scroll-behavior: smooth;
+            }
+
+            .clients .logo-row::-webkit-scrollbar {
+                height: 6px;
+            }
         }
 
         .client-logo {
             max-height: 50px;
+            max-width: 140px;
             width: auto;
-            opacity: 0.8;
+            flex-shrink: 0;
+            opacity: 0.85;
             filter: grayscale(100%);
             transition: 0.3s;
         }
@@ -431,7 +458,6 @@
         .client-logo:hover {
             filter: grayscale(0);
             opacity: 1;
-            transform: scale(1.05);
         }
     </style>
 </head>
@@ -494,12 +520,12 @@
                     for Your Websites</p>
             </div>
             <div class="hero-image order-1 order-md-2 animate__animated animate__fadeInRight animate__delay-1s">
-                <img src="/assets/img/Web devices.gif" alt="Website Creator Illustration" class="img-fluid" id="heroImg">
+                <img src="/assets/img/tes2.png" alt="Website Creator Illustration" class="img-fluid" id="heroImg">
             </div>
         </div>
     </section>
     <section class="clients py-4">
-        <div class="container text-center">
+        <div class="container-fluid px-5 text-center">
             <div class="logo-row">
                 <img src="/assets/img/logo-perusahaan/1.png" class="client-logo">
                 <img src="/assets/img/logo-perusahaan/2.png" class="client-logo">

@@ -90,21 +90,21 @@
 
 
         .main-footer {
-            background-color: #ffffff;
-            color: var(--brand-900);
+            background: linear-gradient(135deg, var(--brand-900), #132f63);
+            color: #ffffff;
             padding-top: 60px;
-            border-top: 1px solid #e9ecef;
+            border-top: none;
         }
 
         .footer-col-title {
-            color: var(--brand-900);
+            color: #ffffff;
             font-size: 1.15rem;
             font-weight: 600;
             margin-bottom: 20px;
         }
 
         .footer-link {
-            color: #5a5a5a;
+            color: rgba(255, 255, 255, 0.85);
             transition: color 0.3s;
             line-height: 2.2;
             text-decoration: none;
@@ -114,10 +114,11 @@
             color: var(--accent);
         }
 
+
         .social-icon-circle {
             width: 40px;
             height: 40px;
-            background-color: #495057;
+            background-color: rgba(255, 255, 255, 0.18);
             color: #fff;
             border-radius: 50%;
             display: flex;
@@ -132,11 +133,12 @@
             transform: scale(1.1);
         }
 
+    
         .copyright {
-            background-color: #1a1e21;
-            color: #ffffff;
+            background: linear-gradient(135deg, #081833, #0a1f44);
+            color: rgba(255, 255, 255, 0.7);
             text-align: left;
-            padding: 10px 0;
+            padding: 12px 0;
         }
 
 
