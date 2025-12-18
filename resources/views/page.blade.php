@@ -233,6 +233,76 @@
             object-fit: cover;
         }
 
+        .about-section {
+            position: relative;
+            background: #ffffff;
+            padding: 100px 0;
+            overflow: hidden;
+        }
+
+
+
+        .about-img {
+            max-width: 90%;
+            border-radius: 14px;
+            box-shadow: none;
+            filter: drop-shadow(0 25px 40px rgba(0, 0, 0, 0.35));
+        }
+
+
+        .about-img:hover {
+            transform: translateY(-8px) scale(1.02);
+        }
+
+        .about-text {
+            font-size: 16px;
+            line-height: 1.9;
+            color: #374151;
+            margin-bottom: 22px;
+        }
+
+        .btn-about {
+            border-radius: 50px;
+            padding: 10px 30px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .btn-about:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(77, 166, 255, 0.35);
+        }
+
+
+        .about-section::after {
+            content: "";
+            position: absolute;
+            bottom: -60px;
+            left: -60px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--accent), transparent 70%);
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        @media (max-width: 768px) {
+            .about-section {
+                text-align: center;
+            }
+
+            .about-img {
+                margin-bottom: 30px;
+            }
+        }
+
+
+        @media (max-width: 768px) {
+            .about-text {
+                text-align: center;
+            }
+        }
+
         .service-card,
         .portfolio-card {
             background: #fff;
@@ -459,6 +529,34 @@
             filter: grayscale(0);
             opacity: 1;
         }
+
+        .portfolio-card {
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 22px 45px rgba(0, 0, 0, 0.18);
+        }
+
+
+        .portfolio-card img {
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .portfolio-card .btn {
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-card:hover .btn {
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 
@@ -513,51 +611,75 @@
 
     <section id="hero" class="hero">
         <div class="hero-overlay" aria-hidden="true"></div>
+
         <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
             <div class="hero-text order-2 order-md-1" style="max-width: 550px;">
-                <h1 class="hero-title animate__animated animate__zoomIn">Jasa Pembuatan Website di Blitar</h1>
-                <p class="hero-sub animate__animated animate__fadeInLeft animate__delay-1s">Arre Technology — Solutions
-                    for Your Websites</p>
+                <h1 class="hero-title animate__animated animate__zoomIn">
+                    Jasa Pembuatan Website di Blitar
+                </h1>
+
+                <p class="hero-sub animate__animated animate__fadeInLeft animate__delay-1s">
+                    Arre Technology — Solutions for Your Websites
+                </p>
+
+                <div class="hero-desc animate__animated animate__fadeInUp animate__delay-1s">
+                    <p class="mb-4">
+                        Kami membantu UMKM, bisnis, dan personal brand di Blitar untuk memiliki
+                        website yang <strong>profesional, cepat, responsif</strong>, dan
+                        <strong>SEO friendly</strong>. Mulai dari company profile, landing page,
+                        hingga sistem custom sesuai kebutuhan bisnis Anda.
+                    </p>
+
+                    <div class="hero-actions d-flex gap-3 flex-wrap mb-4">
+                        <a href="#contact" class="btn btn-primary btn-lg px-4 shadow">
+                            Konsultasi Gratis
+                        </a>
+                        <a href="#portfolio" class="btn btn-outline-light btn-lg px-4">
+                            Lihat Portofolio
+                        </a>
+                    </div>
+
+                    <div class="hero-badges d-flex flex-wrap gap-3">
+                        <span class="badge bg-light text-dark px-3 py-2 shadow-sm">⚡ Fast Loading</span>
+                        <span class="badge bg-light text-dark px-3 py-2 shadow-sm">📱 Responsive</span>
+                        <span class="badge bg-light text-dark px-3 py-2 shadow-sm">🔍 SEO Friendly</span>
+                        <span class="badge bg-light text-dark px-3 py-2 shadow-sm">🔒 Secure</span>
+                    </div>
+                </div>
             </div>
+
+
             <div class="hero-image order-1 order-md-2 animate__animated animate__fadeInRight animate__delay-1s">
                 <img src="/assets/img/tes2.png" alt="Website Creator Illustration" class="img-fluid" id="heroImg">
             </div>
         </div>
     </section>
-    <section class="clients py-4">
-        <div class="container-fluid px-5 text-center">
-            <div class="logo-row">
-                <img src="/assets/img/logo-perusahaan/1.png" class="client-logo">
-                <img src="/assets/img/logo-perusahaan/2.png" class="client-logo">
-                <img src="/assets/img/logo-perusahaan/3.png" class="client-logo">
-                <img src="/assets/img/logo-perusahaan/4.png" class="client-logo">
-                <img src="/assets/img/logo-perusahaan/5.png" class="client-logo">
-                <img src="/assets/img/logo-perusahaan/6.png" class="client-logo">
-                <img src="/assets/img/logo-perusahaan/C.png" class="client-logo">
-                <img src="/assets/img/WhatsApp Image 2025-12-17 at 09.08.13.jpeg" class="client-logo">
+    <section id="about" class="about-section py-5">
+        <div class="container">
+            <h2 class="section-title reveal">Tentang Kami</h2>
+            <div class="section-line"></div>
+
+            <div class="row align-items-center mt-5">
+                <div class="col-md-6 text-center reveal">
+                    <img src="/assets/img/About us page-rafiki.png" class="img-fluid about-img" alt="About">
+                </div>
+
+                <div class="col-md-6 reveal">
+                    <p class="about-text">
+                        <strong>Arre Technology</strong> adalah perusahaan pengembang software yang berfokus pada
+                        solusi digital di Blitar, Jawa Timur. Layanan kami meliputi pembuatan situs web,
+                        maintenance, custom software, hingga mobile app development.
+                        Kami membantu bisnis dan institusi untuk <strong>bertransformasi secara digital</strong>.
+                    </p>
+
+                    <a class="btn btn-primary btn-about mt-3" href="#kontak">
+                        Pelajari Lebih Lanjut
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-
-
-
-    <section id="about" class="py-5 container">
-        <h2 class="section-title reveal">Tentang Kami</h2>
-        <div class="section-line"></div>
-        <div class="row align-items-center mt-4">
-            <div class="col-md-6 text-center reveal">
-                <img src="/assets/img/About us page.gif" class="img-fluid" alt="About">
-            </div>
-            <div class="col-md-6 reveal">
-                <p><strong>Arre Technology</strong> adalah perusahaan pengembang software yang berfokus pada solusi
-                    digital di Blitar, Jawa Timur. Layanan kami meliputi pembuatan situs web, maintenance, custom software,
-                    hingga mobile app development. Kami membantu bisnis dan institusi untuk bertransformasi secara
-                    digital.</p>
-                <a class="btn btn-primary mt-3" href="#kontak">Pelajari Lebih Lanjut</a>
-            </div>
-        </div>
-    </section>
 
     <section id="services" class="py-5 container">
         <h2 class="section-title reveal">Layanan</h2>
@@ -635,7 +757,8 @@
                             @endphp
 
                             <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="card h-100 shadow-sm">
+                                <div class="card h-100 shadow-sm portfolio-card">
+
 
                                     <div style="height:200px; overflow:hidden;">
                                         <img src="{{ asset('uploads/' . $foto) }}"
@@ -694,6 +817,25 @@
             </div>
         </div>
     </section>
+
+    <section class="clients py-5">
+        <h2 class="section-title reveal">Client Kami</h2>
+        <div class="section-line"></div>
+        <div class="container-fluid px-4 px-lg-5">
+            <div class="logo-row">
+                <img src="/assets/img/logo-perusahaan/1.png" class="client-logo" alt="">
+                <img src="/assets/img/logo-perusahaan/2.png" class="client-logo" alt="">
+                <img src="/assets/img/logo-perusahaan/3.png" class="client-logo" alt="">
+                <img src="/assets/img/logo-perusahaan/4.png" class="client-logo" alt="">
+                <img src="/assets/img/logo-perusahaan/5.png" class="client-logo" alt="">
+                <img src="/assets/img/logo-perusahaan/6.png" class="client-logo" alt="">
+                <img src="/assets/img/logo-perusahaan/C.png" class="client-logo" alt="">
+                <img src="/assets/img/WhatsApp Image 2025-12-17 at 09.08.13.jpeg" class="client-logo" alt="">
+            </div>
+        </div>
+    </section>
+
+
 
     <section id="faq" class="py-5 container">
         <h2 class="section-title reveal">FAQ</h2>

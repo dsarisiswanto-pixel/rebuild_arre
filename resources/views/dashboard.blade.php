@@ -367,14 +367,14 @@
                 <div class="kpi text-center card-ghost">
                     <small class="text-muted">Total Portofolio</small>
                     <div class="d-flex justify-content-center align-items-baseline gap-2">
-                        <h2 class="mb-0">{{ $items->count() }}</h2>
+                        <h2 class="mb-0">{{ $items->total() }}</h2>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="kpi text-center card-ghost">
                     <small class="text-muted">Total Jenis Kategori</small>
-                    <h2 class="mb-0">{{ $items->unique('kategori')->count() }}</h2>
+                    <h2 class="mb-0">{{ $totalKategori }}</h2>
                 </div>
             </div>
         </div>
@@ -393,6 +393,20 @@
                     </div>
                 </div>
 
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                    <form method="GET" action="{{ route('dashboard') }}" class="d-flex align-items-center gap-2">
+                        <span>Tampilkan</span>
+                        <select name="per_page"
+                            class="form-select form-select-sm w-auto"
+                            onchange="this.form.submit()">
+                            <option value="5" {{ request('per_page', 5) == 5 ? 'selected' : '' }}>5</option>
+                            <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
+                            <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25</option>
+                        </select>
+                        <span>data</span>
+                    </form>
+                </div>
+
                 <div class="table-responsive">
                     <table class="table table-bordered align-middle text-center" id="portfolioTable">
                         <thead class="table-dark">
@@ -409,9 +423,9 @@
                         </thead>
 
                         <tbody>
-                            @foreach($items as $item)
+                            @forelse($items as $item)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $items->firstItem() + $loop->index }}</td>
 
                                 <td class="text-start fw-semibold">
                                     {{ $item->nama }}
@@ -426,11 +440,8 @@
                                     </span>
                                 </td>
 
-
                                 <td>
-                                    <div class="d-flex flex-wrap gap-2 justify-content-center"
-                                        style="max-width:180px">
-
+                                    <div class="d-flex flex-wrap gap-2 justify-content-center" style="max-width:180px">
                                         @php
                                         $images = json_decode($item->gambar, true);
                                         @endphp
@@ -445,12 +456,10 @@
                                         @else
                                         <small class="text-muted">Tidak ada</small>
                                         @endif
-
                                     </div>
                                 </td>
 
                                 <td>{{ $item->kategori }}</td>
-
 
                                 <td class="text-start">
                                     @if($item->link)
@@ -465,7 +474,6 @@
                                 <td>
                                     {{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}
                                 </td>
-
 
                                 <td>
                                     <button type="button"
@@ -483,7 +491,8 @@
                                     </button>
 
                                     <form action="{{ route('dashboard.portofolio.destroy', $item->id) }}"
-                                        method="POST" class="d-inline"
+                                        method="POST"
+                                        class="d-inline"
                                         onsubmit="return confirm('Yakin hapus?')">
                                         @csrf
                                         @method('DELETE')
@@ -493,10 +502,28 @@
                                     </form>
                                 </td>
                             </tr>
-                            @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="8" class="text-muted text-center">
+                                    Data belum tersedia
+                                </td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
+                    <div class="text-muted small">
+                        Menampilkan {{ $items->firstItem() }} – {{ $items->lastItem() }}
+                        dari {{ $items->total() }} data
+                    </div>
+
+                    <div>
+                        {{ $items->links('pagination::bootstrap-5') }}
+                    </div>
+                </div>
+
 
             </div>
         </div>

@@ -9,13 +9,13 @@ class PortofolioController extends Controller
 {
     public function page()
     {
-        $items = Portofolio::limit(6)->get();
+        $items = Portofolio::latest()->limit(6)->get();
         return view('page', compact('items'));
     }
 
     public function allClients()
     {
-        $items = Portofolio::all();
+        $items = Portofolio::latest()->get();
         return view('all_clients', compact('items'));
     }
 
@@ -25,10 +25,21 @@ class PortofolioController extends Controller
         return view('detail', compact('item'));
     }
 
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-        $items = Portofolio::all();
-        return view('dashboard', compact('items'));
+        $perPage = $request->get('per_page', 5);
+
+        $items = Portofolio::latest()
+            ->paginate($perPage)
+            ->withQueryString();
+
+        $totalKategori = Portofolio::distinct('kategori')->count('kategori');
+
+        return view('dashboard', compact(
+            'items',
+            'perPage',
+            'totalKategori'
+        ));
     }
 
     public function create()
@@ -47,9 +58,16 @@ class PortofolioController extends Controller
             'gambar.*' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $input = $request->only(['nama', 'deskripsi', 'kategori', 'link', 'tanggal']);
+        $input = $request->only([
+            'nama',
+            'deskripsi',
+            'kategori',
+            'link',
+            'tanggal'
+        ]);
 
         $gambarNames = [];
+
         if ($request->hasFile('gambar')) {
             foreach ($request->file('gambar') as $file) {
                 $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
@@ -81,10 +99,15 @@ class PortofolioController extends Controller
 
         $portofolio = Portofolio::findOrFail($id);
 
-        $input = $request->only(['nama', 'deskripsi', 'kategori', 'link', 'tanggal']);
+        $input = $request->only([
+            'nama',
+            'deskripsi',
+            'kategori',
+            'link',
+            'tanggal'
+        ]);
 
         $oldImages = json_decode($portofolio->gambar, true) ?? [];
-
 
         if ($request->hasFile('gambar')) {
             foreach ($oldImages as $img) {
@@ -93,6 +116,7 @@ class PortofolioController extends Controller
                     unlink($path);
                 }
             }
+
             $newImages = [];
             foreach ($request->file('gambar') as $file) {
                 $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
@@ -102,7 +126,6 @@ class PortofolioController extends Controller
 
             $input['gambar'] = json_encode($newImages);
         } else {
-         
             $input['gambar'] = json_encode($oldImages);
         }
 
