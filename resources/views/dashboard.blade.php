@@ -638,7 +638,6 @@
         </div>
     </div>
 
-
     <div class="modal fade" id="modalEdit" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -646,6 +645,8 @@
                     @csrf
 
                     <input type="hidden" name="id" id="edit_id">
+
+                    <input type="hidden" name="hapus_gambar" id="hapus_gambar">
 
                     <div class="modal-header">
                         <h5 class="modal-title">Edit Portofolio</h5>
@@ -661,12 +662,14 @@
 
                         <div class="mb-3">
                             <label>Deskripsi</label>
-                            <textarea name="deskripsi" id="edit_deskripsi" rows="4" class="form-control" required></textarea>
+                            <textarea name="deskripsi" id="edit_deskripsi" rows="4"
+                                class="form-control" required></textarea>
                         </div>
 
                         <div class="mb-3">
                             <label>Kategori</label>
-                            <select name="kategori" id="edit_kategori" class="form-select" required>
+                            <select name="kategori" id="edit_kategori"
+                                class="form-select" required>
                                 <option value="">Pilih</option>
                                 <option value="MVP Development">MVP Development</option>
                                 <option value="Website Development">Website Development</option>
@@ -679,30 +682,42 @@
 
                         <div class="mb-3">
                             <label>Tanggal</label>
-                            <input type="date" name="tanggal" id="edit_tanggal" class="form-control" required>
+                            <input type="date" name="tanggal" id="edit_tanggal"
+                                class="form-control" required>
                         </div>
 
                         <div class="mb-3">
                             <label>Link</label>
-                            <input type="url" name="link" id="edit_link" class="form-control"
+                            <input type="url" name="link" id="edit_link"
+                                class="form-control"
                                 placeholder="https://example.com">
                         </div>
 
                         <div class="mb-3">
                             <label>Gambar Lama</label>
-                            <div id="edit_image_preview_container" class="d-flex flex-wrap gap-2"></div>
+                            <div id="edit_image_preview_container"
+                                class="d-flex flex-wrap gap-2"></div>
                         </div>
+
 
                         <div class="mb-3">
                             <label>Gambar Baru</label>
-                            <input type="file" name="gambar[]" class="form-control" multiple
+                            <input type="file" name="gambar[]"
+                                class="form-control"
+                                multiple
                                 accept="image/jpeg,image/png">
+
                             <div class="form-check mt-2">
-                                <input class="form-check-input" type="checkbox" name="replace_gambar" id="replace_gambar">
-                                <label class="form-check-label" for="replace_gambar">
+                                <input class="form-check-input"
+                                    type="checkbox"
+                                    name="replace_gambar"
+                                    id="replace_gambar">
+                                <label class="form-check-label"
+                                    for="replace_gambar">
                                     Ganti semua gambar lama
                                 </label>
                             </div>
+
                             <small class="text-muted">
                                 Kosongkan jika tidak ingin mengubah gambar.
                             </small>
@@ -711,8 +726,15 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                            Batal
+                        </button>
+                        <button type="submit"
+                            class="btn btn-primary">
+                            Simpan
+                        </button>
                     </div>
 
                 </form>
@@ -745,164 +767,152 @@
         </div>
     </div>
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebarMenu');
-            const backdrop = document.querySelector('.sidebar-backdrop');
 
-            sidebar.classList.toggle('show');
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-            if (sidebar.classList.contains('show')) {
-                backdrop.style.display = 'block';
-                document.body.style.overflow = 'hidden';
-            } else {
-                backdrop.style.display = 'none';
-                document.body.style.overflow = '';
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    function validateImages(input) {
+        const allowed = ['image/jpeg', 'image/png', 'image/jpg'];
+        const maxSize = 2 * 1024 * 1024;
+
+        for (let file of input.files) {
+            if (!allowed.includes(file.type)) {
+                alert('Hanya JPG, JPEG, PNG!');
+                input.value = '';
+                return false;
+            }
+            if (file.size > maxSize) {
+                alert('Ukuran maksimal 2MB!');
+                input.value = '';
+                return false;
             }
         }
-    </script>
+        return true;
+    }
 
+ 
+    const tambahInput = document.getElementById('tambah_gambar');
+    if (tambahInput) {
+        tambahInput.addEventListener('change', function () {
+            if (!validateImages(this)) return;
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('tambah_image_preview_container');
+            container.innerHTML = '';
 
+            Array.from(this.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    container.innerHTML += `
+                        <div class="border p-1">
+                            <img src="${e.target.result}" style="width:120px;height:120px;object-fit:cover;">
+                        </div>`;
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+    }
 
-            function validateImages(input) {
-                const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-                const maxSize = 2 * 1024 * 1024; // 2MB
+    let deletedImages = [];
 
-                for (let file of input.files) {
-                    if (!allowedTypes.includes(file.type)) {
-                        alert('Hanya file JPG, JPEG, dan PNG yang diperbolehkan!');
-                        input.value = '';
-                        return false;
-                    }
+    $('#modalEdit').on('show.bs.modal', function (event) {
+        const btn = $(event.relatedTarget);
+        const modal = $(this);
 
-                    if (file.size > maxSize) {
-                        alert('Ukuran gambar maksimal 2MB!');
-                        input.value = '';
-                        return false;
-                    }
-                }
-                return true;
-            }
+        deletedImages = [];
+        modal.find('#hapus_gambar').val('');
 
-            const tambahInput = document.getElementById('tambah_gambar');
-            if (tambahInput) {
-                tambahInput.addEventListener('change', function() {
+        const id = btn.data('id');
+        modal.find('#formEdit').attr('action', `/dashboard/update/${id}`);
 
-                    if (!validateImages(this)) return;
+        modal.find('#edit_nama').val(btn.data('nama'));
+        modal.find('#edit_deskripsi').val(btn.data('deskripsi'));
+        modal.find('#edit_kategori').val(btn.data('kategori'));
+        modal.find('#edit_tanggal').val(btn.data('tanggal'));
+        modal.find('#edit_link').val(btn.data('link'));
 
-                    const container = document.getElementById('tambah_image_preview_container');
-                    container.innerHTML = '';
+        const container = modal.find('#edit_image_preview_container');
+        container.empty();
 
-                    Array.from(this.files).forEach(file => {
-                        const reader = new FileReader();
-                        reader.onload = e => {
-                            const div = document.createElement('div');
-                            div.className = 'border p-1';
-                            div.innerHTML = `
-                        <img src="${e.target.result}"
-                             style="width:120px;height:120px;object-fit:cover;">
-                    `;
-                            container.appendChild(div);
-                        };
-                        reader.readAsDataURL(file);
-                    });
-                });
-            }
+        let images = btn.data('gambar-json') || [];
 
-            $('#modalEdit').on('show.bs.modal', function(event) {
-                const button = $(event.relatedTarget);
-                const modal = $(this);
+        if (!images.length) {
+            container.html('<small class="text-muted">Tidak ada gambar</small>');
+            return;
+        }
 
-                const id = button.data('id');
-                modal.find('#formEdit').attr('action', `/dashboard/update/${id}`);
-
-                modal.find('#edit_id').val(id);
-                modal.find('#edit_nama').val(button.data('nama'));
-                modal.find('#edit_deskripsi').val(button.data('deskripsi'));
-                modal.find('#edit_kategori').val(button.data('kategori'));
-                modal.find('#edit_tanggal').val(button.data('tanggal'));
-                modal.find('#edit_link').val(button.data('link'));
-
-                const container = modal.find('#edit_image_preview_container');
-                container.empty();
-
-                let images = [];
-                try {
-                    images = button.data('gambar-json') || [];
-                } catch (e) {}
-
-                if (!images.length) {
-                    container.html('<small class="text-muted">Tidak ada gambar</small>');
-                    return;
-                }
-
-                images.forEach(img => {
-                    container.append(`
-                <div class="border p-1">
+        images.forEach(img => {
+            container.append(`
+                <div class="image-preview position-relative" data-name="${img}">
                     <img src="/uploads/${img}"
-                         style="width:120px;height:120px;object-fit:contain;">
+                        class="rounded border"
+                        style="width:120px;height:120px;object-fit:cover;">
+                    <button type="button"
+                        class="btn-close position-absolute top-0 end-0 remove-preview"
+                        style="background:white;border-radius:50%">
+                    </button>
                 </div>
             `);
-                });
-            });
-
-            document.querySelectorAll('input[name="gambar[]"]').forEach(input => {
-                input.addEventListener('change', function() {
-                    validateImages(this);
-                });
-            });
-
-            const type = "{{ session('notif_type') }}";
-            const message = "{{ session('notif_message') }}";
-
-            if (message) {
-                const modal = new bootstrap.Modal(document.getElementById('notifModal'));
-
-                const icon = document.getElementById('notifIcon');
-                const title = document.getElementById('notifTitle');
-                const text = document.getElementById('notifMessage');
-
-                icon.innerHTML = '<i class="fas fa-check"></i>';
-                icon.style.background = '#ecfdf5';
-                icon.style.color = '#16a34a';
-                title.innerText = 'Berhasil';
-                text.innerText = message;
-
-                if (type === 'login') {
-                    title.innerText = 'Login Berhasil';
-                    icon.innerHTML = '<i class="fas fa-sign-in-alt"></i>';
-                    icon.style.background = '#ecfeff';
-                    icon.style.color = '#0ea5e9';
-                }
-
-                if (type === 'edit') {
-                    title.innerText = 'Berhasil Diperbarui';
-                    icon.innerHTML = '<i class="fas fa-edit"></i>';
-                    icon.style.background = '#eef4ff';
-                    icon.style.color = '#2563eb';
-                }
-
-                if (type === 'delete') {
-                    title.innerText = 'Berhasil Dihapus';
-                    icon.innerHTML = '<i class="fas fa-trash"></i>';
-                    icon.style.background = '#fee2e2';
-                    icon.style.color = '#dc2626';
-                }
-
-                modal.show();
-            }
-
         });
-    </script>
+    });
 
 
+    $(document).on('click', '.remove-preview', function () {
+        const wrapper = $(this).closest('.image-preview');
+        deletedImages.push(wrapper.data('name'));
+        $('#hapus_gambar').val(JSON.stringify(deletedImages));
+        wrapper.remove();
+    });
 
+    $('#formEdit').on('submit', function (e) {
+        const oldCount = $('#edit_image_preview_container .image-preview').length;
+        const newFiles = $('input[name="gambar[]"]')[0].files.length;
+
+        if (oldCount === 0 && newFiles === 0) {
+            e.preventDefault();
+            alert('Minimal harus ada 1 gambar!');
+        }
+    });
+    const type = @json(session('notif_type'));
+    const message = @json(session('notif_message'));
+
+    if (message) {
+        const modal = new bootstrap.Modal(document.getElementById('notifModal'));
+        const icon = document.getElementById('notifIcon');
+        const title = document.getElementById('notifTitle');
+        const text = document.getElementById('notifMessage');
+
+        title.innerText = 'Berhasil';
+        text.innerText = message;
+
+        if (type === 'add') {
+            title.innerText = 'Berhasil Ditambahkan';
+            icon.innerHTML = '<i class="fas fa-plus"></i>';
+            icon.style.background = '#ecfdf5';
+            icon.style.color = '#16a34a';
+        }
+        if (type === 'edit') {
+            title.innerText = 'Berhasil Diperbarui';
+            icon.innerHTML = '<i class="fas fa-edit"></i>';
+            icon.style.background = '#eef4ff';
+            icon.style.color = '#2563eb';
+        }
+        if (type === 'delete') {
+            title.innerText = 'Berhasil Dihapus';
+            icon.innerHTML = '<i class="fas fa-trash"></i>';
+            icon.style.background = '#fee2e2';
+            icon.style.color = '#dc2626';
+        }
+
+        modal.show();
+    }
+
+});
+</script>
+    
 
 </body>
 

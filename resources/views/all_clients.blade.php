@@ -88,6 +88,7 @@
             height: 100%;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         .portfolio-card::after {
@@ -97,6 +98,7 @@
             background: linear-gradient(135deg, rgba(77, 166, 255, .15), transparent);
             opacity: 0;
             transition: .35s;
+            pointer-events: none;
         }
 
         .portfolio-card:hover::after {

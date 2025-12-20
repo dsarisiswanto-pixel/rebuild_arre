@@ -107,27 +107,55 @@ class PortofolioController extends Controller
             'tanggal'
         ]);
 
+        // ===============================
+        // AMBIL GAMBAR LAMA
+        // ===============================
         $oldImages = json_decode($portofolio->gambar, true) ?? [];
 
-        if ($request->hasFile('gambar')) {
-            foreach ($oldImages as $img) {
+        // ===============================
+        // HAPUS GAMBAR YANG DIKLIK ❌
+        // ===============================
+        $deletedImages = json_decode($request->hapus_gambar, true) ?? [];
+
+        if (!empty($deletedImages)) {
+            foreach ($deletedImages as $img) {
                 $path = public_path('uploads/' . $img);
                 if (file_exists($path)) {
                     unlink($path);
                 }
             }
 
-            $newImages = [];
+            // buang dari array lama
+            $oldImages = array_values(array_diff($oldImages, $deletedImages));
+        }
+
+        // ===============================
+        // JIKA UPLOAD GAMBAR BARU
+        // ===============================
+        if ($request->hasFile('gambar')) {
+
+            // kalau centang replace_gambar → hapus semua lama
+            if ($request->has('replace_gambar')) {
+                foreach ($oldImages as $img) {
+                    $path = public_path('uploads/' . $img);
+                    if (file_exists($path)) {
+                        unlink($path);
+                    }
+                }
+                $oldImages = [];
+            }
+
             foreach ($request->file('gambar') as $file) {
                 $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('uploads'), $filename);
-                $newImages[] = $filename;
+                $oldImages[] = $filename;
             }
-
-            $input['gambar'] = json_encode($newImages);
-        } else {
-            $input['gambar'] = json_encode($oldImages);
         }
+
+        // ===============================
+        // SIMPAN FINAL
+        // ===============================
+        $input['gambar'] = json_encode($oldImages);
 
         $portofolio->update($input);
 
