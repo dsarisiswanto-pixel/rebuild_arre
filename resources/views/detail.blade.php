@@ -146,7 +146,7 @@
 
         .hero {
             background: linear-gradient(135deg, var(--brand-900), var(--brand-700));
-            padding: 120px 0 90px;
+            padding: 170px 0 145px;
             color: #fff;
         }
 
@@ -239,6 +239,15 @@
             .hero-image {
                 margin-top: 30px;
             }
+
+            .hero-portfolio {
+                background: linear-gradient(135deg, #0a1f44, #0f2f66);
+                min-height: 80vh;
+                display: flex;
+                align-items: center;
+                padding: 120px 0;
+            }
+
         }
     </style>
 </head>

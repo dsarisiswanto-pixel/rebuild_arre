@@ -6,16 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\Portofolio;
 
 class PortofolioController extends Controller
-{
-    public function page()
+{       public function page()
     {
-        $items = Portofolio::latest()->limit(6)->get();
+        $items = Portofolio::orderBy('id', 'asc')->paginate(10);
         return view('page', compact('items'));
     }
 
     public function allClients()
     {
-        $items = Portofolio::latest()->get();
+        $items = Portofolio::orderBy('id', 'asc')->get();
         return view('all_clients', compact('items'));
     }
 
@@ -29,7 +28,7 @@ class PortofolioController extends Controller
     {
         $perPage = $request->get('per_page', 5);
 
-        $items = Portofolio::latest()
+        $items = Portofolio::orderBy('id', 'asc')
             ->paginate($perPage)
             ->withQueryString();
 
@@ -41,6 +40,7 @@ class PortofolioController extends Controller
             'totalKategori'
         ));
     }
+
 
     public function create()
     {
@@ -107,40 +107,23 @@ class PortofolioController extends Controller
             'tanggal'
         ]);
 
-        // ===============================
-        // AMBIL GAMBAR LAMA
-        // ===============================
         $oldImages = json_decode($portofolio->gambar, true) ?? [];
-
-        // ===============================
-        // HAPUS GAMBAR YANG DIKLIK ❌
-        // ===============================
         $deletedImages = json_decode($request->hapus_gambar, true) ?? [];
 
         if (!empty($deletedImages)) {
             foreach ($deletedImages as $img) {
                 $path = public_path('uploads/' . $img);
-                if (file_exists($path)) {
-                    unlink($path);
-                }
+                if (file_exists($path)) unlink($path);
             }
-
-            // buang dari array lama
             $oldImages = array_values(array_diff($oldImages, $deletedImages));
         }
 
-        // ===============================
-        // JIKA UPLOAD GAMBAR BARU
-        // ===============================
         if ($request->hasFile('gambar')) {
 
-            // kalau centang replace_gambar → hapus semua lama
             if ($request->has('replace_gambar')) {
                 foreach ($oldImages as $img) {
                     $path = public_path('uploads/' . $img);
-                    if (file_exists($path)) {
-                        unlink($path);
-                    }
+                    if (file_exists($path)) unlink($path);
                 }
                 $oldImages = [];
             }
@@ -152,11 +135,7 @@ class PortofolioController extends Controller
             }
         }
 
-        // ===============================
-        // SIMPAN FINAL
-        // ===============================
         $input['gambar'] = json_encode($oldImages);
-
         $portofolio->update($input);
 
         return redirect()->route('dashboard')->with([
@@ -174,9 +153,7 @@ class PortofolioController extends Controller
         if ($images) {
             foreach ($images as $img) {
                 $path = public_path('uploads/' . $img);
-                if (file_exists($path)) {
-                    unlink($path);
-                }
+                if (file_exists($path)) unlink($path);
             }
         }
 
